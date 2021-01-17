@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - AutoDeath
   layers:
   - Default
   - TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - EmptyHearts
   - 
   - 
   - 
@@ -38,6 +39,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: sky
+    uniqueID: 2845408479
+    locked: 0
+  - name: BackGround
+    uniqueID: 2685221523
+    locked: 0
+  - name: MiddleGround
+    uniqueID: 1694702397
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
