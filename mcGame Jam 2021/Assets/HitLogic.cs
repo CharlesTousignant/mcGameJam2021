@@ -5,13 +5,17 @@ using UnityEngine;
 public class HitLogic : MonoBehaviour
 {   
     public FloatVariable health;
+    public BoolVariable reachedGoal;
+    private float timeSinceReachedFlag =0f;
+    private bool reachedFlag = false;
     // Start is called before the first frame update
     void Start()
     {
         health.value = 3;
+        reachedGoal.value = false;
     }
 
-    // Update is called once per frame
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(collision.transform.tag == "AutoDeath")
@@ -20,9 +24,30 @@ public class HitLogic : MonoBehaviour
             PlayerDamage();
             PlayerRespawn();
         }
+
+
+        else if(collision.transform.tag == "flag")
+        {   
+            reachedFlag = true;
+        }
     }
 
-    private void PlayerDamage()
+    private void Update()
+    {
+        if(reachedFlag)
+        {   if(timeSinceReachedFlag < 1.5f)
+            {
+                timeSinceReachedFlag += Time.deltaTime;
+            }
+
+            else{
+                reachedGoal.value = true;
+            }
+
+        }
+    }
+
+    public void PlayerDamage()
     {
         health.value -= 1;
     }

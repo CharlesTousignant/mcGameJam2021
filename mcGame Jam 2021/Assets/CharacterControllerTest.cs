@@ -61,40 +61,34 @@ public class CharacterControllerTest : MonoBehaviour
 
 		if (OnCrouchEvent == null)
 			OnCrouchEvent = new BoolEvent();
+		
+		m_Grounded = true;
 	}
 
-    private void Update()
-    {
-        Debug.DrawRay(transform.position - new Vector3(0, rayYPos, 0), Vector3.down*0.2f, Color.blue);
-    }
+	private void Update()
+	{	
+		if(m_Grounded)
+		{
+			OnLandEvent.Invoke();
+		}
 
-	private void FixedUpdate()
-	{
-		bool wasGrounded = m_Grounded;
-		m_Grounded = false;
-
-        if(!wasGrounded)
+        else
         {
-            if (timeSinceJump < 1f)
-            {
-                timeSinceJump += Time.fixedDeltaTime;
-            }
-            else
-            {
-                RaycastHit2D hitInfo;
-                hitInfo = Physics2D.Raycast(transform.position - new Vector3(0, rayYPos, 0), Vector2.down, 0.2f);
-                
-                if (hitInfo)
-                {   
-                    // Debug.Log(hitInfo.ToString());
-                    // Debug.Log(timeSinceJump);
-                    // Debug.Log("rayHit");
-                    m_Grounded = true;
-                    timeSinceJump = 0;
-                    
-                    OnLandEvent.Invoke();
-                }
-            }
+			RaycastHit2D hitInfo;
+			hitInfo = Physics2D.Raycast(transform.position - new Vector3(0, rayYPos, 0), Vector3.down, 0.5f);
+			Debug.DrawRay(transform.position - new Vector3(0, rayYPos, 0), Vector3.down, Color.magenta);
+			if (hitInfo && hitInfo.collider.gameObject.tag == "Ground")
+			{   timeSinceJump += Time.deltaTime;
+				if(timeSinceJump > 0.1f)
+				{	
+					//Debug.Log(timeSinceJump);
+					m_Grounded = true;
+					timeSinceJump = 0;
+					OnLandEvent.Invoke();
+				}
+
+			}
+			Debug.Log(hitInfo.collider.gameObject.tag);
         }
 	}
 
@@ -133,10 +127,11 @@ public class CharacterControllerTest : MonoBehaviour
 			}
 		}
 		// If the player should jump...
-		if (jump)
+		if (jump && m_Grounded)
 		{
 			// Add a vertical force to the player.
 			m_Grounded = false;
+			transform.position += new Vector3(0, 0f, 0);
 			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             timeSinceJump = 0f;
 		}
@@ -147,7 +142,6 @@ public class CharacterControllerTest : MonoBehaviour
 	{
 		// Switch the way the player is labelled as facing.
 		m_FacingRight = !m_FacingRight;
-
 		// Multiply the player's x local scale by -1.
 		Vector3 theScale = transform.localScale;
 		theScale.x *= -1;

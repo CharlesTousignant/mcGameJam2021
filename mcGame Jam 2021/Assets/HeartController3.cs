@@ -7,7 +7,7 @@ public class HeartController3 : MonoBehaviour
     public FloatVariable health;
     private void Awake()
     {
-
+        transform.localScale = Vector3.zero;
     }
     // Start is called before the first frame update
     void Start()
@@ -20,8 +20,7 @@ public class HeartController3 : MonoBehaviour
     {
         if(health.value <3)
         {   
-            Debug.Log("LostHeart");
-            transform.localScale = Vector3.one;
+            transform.localScale = new Vector3(40,40,40);
         }
     }
 }

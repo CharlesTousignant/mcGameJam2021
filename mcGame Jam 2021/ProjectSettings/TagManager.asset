@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - AutoDeath
+  - Background
+  - flag
+  - Ground
   layers:
   - Default
   - TransparentFX
@@ -15,9 +18,9 @@ TagManager:
   - 
   - 
   - EmptyHearts
-  - 
-  - 
-  - 
+  - Cleaner
+  - BackGround
+  - pipe
   - 
   - 
   - 
@@ -39,6 +42,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: New Layer
+    uniqueID: 1531458643
+    locked: 0
+  - name: Space
+    uniqueID: 3545106429
+    locked: 0
   - name: sky
     uniqueID: 2845408479
     locked: 0

@@ -52,6 +52,5 @@ public class PlayerMovement : MonoBehaviour {
 	{
 		// Move our character
 		controller.Move(horizontalMove * Time.fixedDeltaTime, false, jump);
-		jump = false;
 	}
 }
